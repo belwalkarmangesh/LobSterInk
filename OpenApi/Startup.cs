@@ -30,8 +30,8 @@ namespace OpenApi
             services.AddTransient<ICacheHelper, CacheHelper>();
             services.AddTransient<IGameHelper, GameHelper>();
 
-            //var redis = ConnectionMultiplexer.Connect("openapi_redis_1:6379");
-            var redis = ConnectionMultiplexer.Connect("localhost:5003");
+            var redis = ConnectionMultiplexer.Connect("rediscache:6379");
+            //var redis = ConnectionMultiplexer.Connect("localhost:6379");
             services.AddScoped(s => redis.GetDatabase());           
         }
 

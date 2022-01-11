@@ -1,8 +1,11 @@
 version: '3'
 
 services:
- openapi:
-  image: openapi
+ adventuregamesapi:
+  container_name: adventuregamesapi
+  build: 
+   context: .
+   dockerfile: OpenApi\Dockerfile
   ports:
    - "5000:80"
   links:
@@ -10,6 +13,7 @@ services:
    
  redis:
   image: redis
+  container_name: rediscache
   volumes:
    - .\redis.conf:/tmp/redis.conf
   ports:
