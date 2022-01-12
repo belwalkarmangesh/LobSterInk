@@ -64,7 +64,23 @@ namespace OpenApi.Helpers
                 }
             }
             return stepOutput;
-        }      
+        }
+
+        public string GetUserGameStepTaken()
+        {
+
+            return (!string.IsNullOrEmpty(_cacheHelper.GetCache("GameSteps")) ? _cacheHelper.GetCache("GameSteps") : "Looks like 'No Game' has been played");
+        }
+        public List<GetAllGames> GetAllGames()
+        {
+            var games = new List<GetAllGames>
+            {
+                new GetAllGames{ Name = "Game 1", Description = "Doughnut Helper" },
+                new GetAllGames { Name = "Game 2", Description = "Book lover's Dilema" }
+            };
+
+            return games;
+        }
 
         private GameResponse BuildOutputForGivenStep(Dictionary<string, DecisionTreeQuery> steps, string nextStep,string currentStep,string userInput)
         {
@@ -120,9 +136,6 @@ namespace OpenApi.Helpers
             _cacheHelper.SetCache(new KeyValuePair<string, string>("GameSteps", savedSteps));
         }
 
-        public string GetUserGameStepTaken()
-        {
-           return _cacheHelper.GetCache("GameSteps");
-        }
+        
     }
 }

@@ -26,9 +26,9 @@ namespace OpenApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OpenApi", Version = "v1" });
             });
-            services.AddTransient<IRedisOperations, RedisOperations>();
-            services.AddTransient<ICacheHelper, CacheHelper>();
-            services.AddTransient<IGameHelper, GameHelper>();
+            services.AddScoped<IRedisOperations, RedisOperations>();
+            services.AddScoped<ICacheHelper, CacheHelper>();
+            services.AddScoped<IGameHelper, GameHelper>();
 
             var redis = ConnectionMultiplexer.Connect("rediscache:6379");
             //var redis = ConnectionMultiplexer.Connect("localhost:6379");

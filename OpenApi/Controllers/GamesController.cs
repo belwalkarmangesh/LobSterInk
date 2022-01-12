@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenApi.Helpers;
 using OpenApi.Models;
+using System.Collections.Generic;
 
 namespace OpenApi.Controllers
 {
@@ -17,21 +18,21 @@ namespace OpenApi.Controllers
         }
 
         [HttpGet("[action]")]
-        public string GetAllAdventures()
-        {
-            return "Here are all the Games : Game 1 - Book lover's Dilema ; Game 2 - Doughnut Decision Helper";
+        public ActionResult<List<GetAllGames>> GetAllAdventures()
+        { 
+            return Ok(_gameHelper.GetAllGames());
         }
 
         [HttpGet("[action]/{userInput}")]
-        public GameResponse PlayGame(string userInput)
+        public ActionResult<GameResponse> PlayGame(string userInput)
         {
-            return _gameHelper.StepHelper(userInput);
+            return Ok(_gameHelper.StepHelper(userInput));
         }
 
         [HttpGet("[action]")]
-        public string GetCurrentGameStepsTaken()
+        public ActionResult<string> GetCurrentGameStepsTaken()
         {
-            return _gameHelper.GetUserGameStepTaken();
+            return Ok(_gameHelper.GetUserGameStepTaken());
         }
     }
 }

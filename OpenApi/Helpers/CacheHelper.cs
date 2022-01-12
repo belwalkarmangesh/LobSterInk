@@ -30,10 +30,10 @@ namespace OpenApi.Helpers
         {
             string cachedSteps = string.Empty;
 
-            //Build Cache for Game 1 :
+            //Build Cache for Game 2 :
             if (string.IsNullOrWhiteSpace(GetCache("BookDilemaDecisionTreeSteps")) || string.IsNullOrEmpty(GetCache("BookDilemaDecisionTreeSteps")))
             {
-                Dictionary<string, DecisionTreeQuery> doughnutAdventureSteps = new Dictionary<string, DecisionTreeQuery>();
+                var doughnutAdventureSteps = new Dictionary<string, DecisionTreeQuery>();
 
                 var queryAreYouSure
                   = new DecisionTreeQuery("Are you sure ?",
@@ -78,7 +78,7 @@ namespace OpenApi.Helpers
 
         public void BuildCacheForDoughNutHelper()
         {
-            //Build Cache for Game 2 :
+            //Build Cache for Game 1 :
 
         }
 
