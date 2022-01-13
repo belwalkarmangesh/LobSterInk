@@ -25,6 +25,7 @@ namespace OpenApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OpenApi", Version = "v1" });
+                
             });
             
             services.AddScoped<IRedisOperations, RedisOperations>();
