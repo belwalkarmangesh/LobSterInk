@@ -38,4 +38,19 @@ Step 6: Open below URL in browser and you should be able to access the Api.
         http://localhost:5000/swagger
 
 ```
+Actions in API :
+```
+       GetAllAdventures() : Get's all currently available adventure.
+       For demo purpose we wil be only using Game 1 : Book lover's dilema.
+```
 
+```
+       PlayGame(string gameName) : You can only play "Game 1" fro now , for starting game enter input "Game 1"
+                                   Once the game is started only inputs allowed are "Yes" or "No"
+
+```
+
+``` 
+       GetCurrentGameStepsTaken() : This action will list the steps taken for current game played
+
+```
