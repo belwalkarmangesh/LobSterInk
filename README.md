@@ -1,5 +1,10 @@
 # LobsterinkExercise
 
+Before you start have a look at the sample decision tree used for this exercise.
+```
+        https://github.com/belwalkarmangesh/LobSterInk/blob/main/BookLover's_Dilema.png
+```
+
 Step 1: Once you have cloned the repo, if you want to run the unit tests to see if every thing is running follow below :
 ```
      a: docker run --name redis -p 6379:6379 -d redis => This will create redis container for testing.
