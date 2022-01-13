@@ -33,7 +33,7 @@ namespace TestProject
             //Do you want a book? ("No") => Maybe you want a pizza..
             var gameResponse = PlayGameScenarioWantAPizzaTestHelper("Game 1");
 
-            Assert.Equal("Game Succesfully finished", gameResponse.StepQuestion);
+            Assert.Equal(Constants.GameFinished, gameResponse.StepQuestion);
         }
 
         private GameResponse PlayGameScenarioWantAPizzaTestHelper(string userInput)
@@ -44,9 +44,9 @@ namespace TestProject
 
             var gamesResponse = gamesResult.Value as GameResponse;
 
-            if (gamesResponse.StepQuestion == "Maybe you want a pizza.")
+            if (gamesResponse.StepQuestion == Constants.MayBeYouWantPizza)
             {
-                return new GameResponse("Game Succesfully finished", null);
+                return new GameResponse(Constants.GameFinished, null);
             }
             userInput = "No";
             return PlayGameScenarioWantAPizzaTestHelper(userInput);

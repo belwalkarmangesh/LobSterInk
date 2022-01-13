@@ -33,7 +33,7 @@ namespace TestProject
             //Do you want a book? ("Yes") => Do you like it ("No") => Is it a good book? ("Yes") => What are you waiting for? Just buy it..
             var gameResponse = PlayGameScenarioDontWaitTestHelper("Game 1");
 
-            Assert.Equal("Game Succesfully finished", gameResponse.StepQuestion);
+            Assert.Equal(Constants.GameFinished, gameResponse.StepQuestion);
         }
 
         private GameResponse PlayGameScenarioDontWaitTestHelper(string userInput)
@@ -44,20 +44,20 @@ namespace TestProject
 
             var gamesResponse = gamesResult.Value as GameResponse;
 
-            if (gamesResponse.StepQuestion == "Do you like it?")
+            if (gamesResponse.StepQuestion == Constants.DoYouLikeIt)
             {
                 userInput = "No";
                 return PlayGameScenarioDontWaitTestHelper(userInput);
             }
 
-            if (gamesResponse.StepQuestion == "Is it a good book?")
+            if (gamesResponse.StepQuestion == Constants.IsItAGoodBook)
             {
                 userInput = "Yes";
                 return PlayGameScenarioDontWaitTestHelper(userInput);
             }
-            if (gamesResponse.StepQuestion == "What are you waiting for? Just buy it.")
+            if (gamesResponse.StepQuestion == Constants.JustBuyIt)
             {
-                return new GameResponse("Game Succesfully finished", null);
+                return new GameResponse(Constants.GameFinished, null);
             }
             userInput = "Yes";
             return PlayGameScenarioDontWaitTestHelper(userInput);

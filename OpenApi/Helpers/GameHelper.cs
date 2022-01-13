@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using OpenApi.Models;
 using System.Collections.Generic;
 
@@ -26,17 +27,17 @@ namespace OpenApi.Helpers
             string currentStep = string.Empty;
             string nextStep = string.Empty;
             GameResponse stepOutput = null;
-            var steps = GetCacheForGame("BookDilemaDecisionTreeSteps");
+            var steps = GetCacheForGame(Constants.KeyBookLoversDilema);
 
             if (userInput == "Game 1" || userInput == "Game 2")
             {
                 nextStep = "Step-1";
 
-                _cacheHelper.SetCache(new KeyValuePair<string, string>("GameSteps", null));
+                _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyGameSteps, null));
 
-                _cacheHelper.SetCache(new KeyValuePair<string, string>("EndOfGame", null));
+                _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyEndOfGame, null));
 
-                _cacheHelper.SetCache(new KeyValuePair<string, string>("CurrentStep", nextStep));
+                _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyCurrentStep, nextStep));
 
                 stepOutput = BuildOutputForGivenStep(steps, nextStep,currentStep,userInput);
 
@@ -45,22 +46,22 @@ namespace OpenApi.Helpers
             }
             else
             {
-                if (string.IsNullOrEmpty(_cacheHelper.GetCache("EndOfGame")))
+                if (string.IsNullOrEmpty(_cacheHelper.GetCache(Constants.KeyEndOfGame)))
                 {
                     //Current Step from cache.
-                    currentStep = _cacheHelper.GetCache("CurrentStep");
+                    currentStep = _cacheHelper.GetCache(Constants.KeyCurrentStep);
 
                     //Get Next Step:
                     nextStep = steps[currentStep].EvaluateNextStep(userInput);
 
                     stepOutput = BuildOutputForGivenStep(steps, nextStep,currentStep,userInput);
 
-                    _cacheHelper.SetCache(new KeyValuePair<string, string>("CurrentStep", nextStep));
+                    _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyCurrentStep, nextStep));
                     
                 }
                 else
                 {
-                    return new GameResponse("The Game is ended. Please start a new Game to continue", "Allowed Inputs : 'Game 1' or 'Game 2'");
+                    return new GameResponse(Constants.PleaseStartNewGame, Constants.GameStartInputs);
                 }
             }
             return stepOutput;
@@ -69,7 +70,7 @@ namespace OpenApi.Helpers
         public string GetUserGameStepTaken()
         {
 
-            return (!string.IsNullOrEmpty(_cacheHelper.GetCache("GameSteps")) ? _cacheHelper.GetCache("GameSteps") : "Looks like 'No Game' has been played");
+            return (!string.IsNullOrEmpty(_cacheHelper.GetCache(Constants.KeyGameSteps)) ? _cacheHelper.GetCache(Constants.KeyGameSteps) : Constants.NoGamePlayed);
         }
         public List<GetAllGames> GetAllGames()
         {
@@ -93,18 +94,18 @@ namespace OpenApi.Helpers
                 //Save Steps taken in Game
                 SaveSteps(steps, nextStep, currentStep, userInput);
 
-                return new GameResponse(step.Sentence, "Allowed Inputs : 'Yes' or 'No'");
+                return new GameResponse(step.Sentence, Constants.AllowedInputs);
             }
             else
             {
-                _cacheHelper.SetCache(new KeyValuePair<string, string>("CurrentStep", null));
+                _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyCurrentStep, null));
 
-                _cacheHelper.SetCache(new KeyValuePair<string, string>("EndOfGame", "EndOfGame"));
+                _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyEndOfGame, "EndOfGame"));
 
                 //Save Steps taken in Game
                 SaveSteps(steps, nextStep, currentStep, userInput);
 
-                return new GameResponse(nextStep, "You reached End of the Game, Hope you enjoyed!");
+                return new GameResponse(nextStep, Constants.YouReachedEnfOfGame);
             }
         }
 
@@ -112,9 +113,9 @@ namespace OpenApi.Helpers
         {
             string savedSteps = string.Empty;
 
-            if (!string.IsNullOrEmpty(_cacheHelper.GetCache("GameSteps")))
+            if (!string.IsNullOrEmpty(_cacheHelper.GetCache(Constants.KeyGameSteps)))
             {
-                saveSteps = JsonConvert.DeserializeObject<Dictionary<string, GameStepsTaken>>(_cacheHelper.GetCache("GameSteps"));
+                saveSteps = JsonConvert.DeserializeObject<Dictionary<string, GameStepsTaken>>(_cacheHelper.GetCache(Constants.KeyGameSteps));
                 if (nextStep.Contains("Step"))
                 {
                     if (!(nextStep == "Step-1"))
@@ -124,7 +125,7 @@ namespace OpenApi.Helpers
                 }
                 else
                 {
-                    saveSteps.Add("Step " + (saveSteps.Count + 1), new GameStepsTaken() { StepQuestion = nextStep, UserSelection = "You reached End of the Game, Hope you enjoyed!" });
+                    saveSteps.Add("Step " + (saveSteps.Count + 1), new GameStepsTaken() { StepQuestion = nextStep, UserSelection = Constants.YouReachedEnfOfGame });
                 }
             }
             else
@@ -133,7 +134,7 @@ namespace OpenApi.Helpers
             }
 
             savedSteps = JsonConvert.SerializeObject(saveSteps);
-            _cacheHelper.SetCache(new KeyValuePair<string, string>("GameSteps", savedSteps));
+            _cacheHelper.SetCache(new KeyValuePair<string, string>(Constants.KeyGameSteps, savedSteps));
         }
 
         

@@ -44,7 +44,7 @@ namespace TestProject
 
             var gamesResponse = gamesResult.Value as GameResponse;
 
-            if (gamesResponse.StepQuestion == "Buy it.")
+            if (gamesResponse.StepQuestion == Constants.BuyIt)
             {
                 return new GameResponse("Game Succesfully finished", null);
             }

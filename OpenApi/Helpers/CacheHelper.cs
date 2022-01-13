@@ -38,29 +38,21 @@ namespace OpenApi.Helpers
                 var queryAreYouSure
                   = new DecisionTreeQuery("Are you sure ?",
                                           "Buy it.",
-                                          "You need to wait.",
-                                          false,
-                                          false);
+                                          "You need to wait.");
 
                 var queryIsItAGoodBook
                   = new DecisionTreeQuery("Is it a good book?",
                                           "What are you waiting for? Just buy it.",
-                                          "Find another one.",
-                                          false,
-                                          false);
+                                          "Find another one.");
                 var queryDoYouLikeIt
                   = new DecisionTreeQuery("Do you like it?",
                                           "Step-4",
-                                          "Step-3",
-                                          true,
-                                          true);
+                                          "Step-3");
 
                 var queryDoYouWantABook
                   = new DecisionTreeQuery("Do you want a book?",
                                           "Step-2",
-                                          "Maybe you want a pizza.",
-                                          true,
-                                          false);
+                                          "Maybe you want a pizza.");
 
 
                 doughnutAdventureSteps.Add("Step-1", queryDoYouWantABook);

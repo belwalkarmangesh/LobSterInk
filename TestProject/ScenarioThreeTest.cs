@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using OpenApi;
 using OpenApi.Controllers;
 using OpenApi.Helpers;
 using OpenApi.Models;
@@ -22,7 +24,6 @@ namespace TestProject
             _database = redis.GetDatabase();
             _redisOperations = new RedisOperations(_database);
             cacheHelper = new CacheHelper(_redisOperations);
-            _service = new GameHelper(cacheHelper);
             _controller = new GamesController(_service);
         }
 
@@ -44,13 +45,13 @@ namespace TestProject
 
             var gamesResponse = gamesResult.Value as GameResponse;
 
-            if (gamesResponse.StepQuestion == "Are you sure ?")
+            if (gamesResponse.StepQuestion == Constants.AreYouSure)
             {
                 userInput = "No";
                 return PlayGameScenarioBuyItTestHelper(userInput);
             }
 
-            if (gamesResponse.StepQuestion == "You need to wait.")
+            if (gamesResponse.StepQuestion == Constants.PleaseWait)
             {
                 return new GameResponse("Game Succesfully finished", null);
             }
