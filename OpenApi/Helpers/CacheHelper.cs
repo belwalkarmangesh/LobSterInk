@@ -31,28 +31,28 @@ namespace OpenApi.Helpers
             string cachedSteps = string.Empty;
 
             //Build Cache for Game 2 :
-            if (string.IsNullOrWhiteSpace(GetCache("BookDilemaDecisionTreeSteps")) || string.IsNullOrEmpty(GetCache("BookDilemaDecisionTreeSteps")))
+            if (string.IsNullOrWhiteSpace(GetCache(Constants.KeyBookLoversDilema)) || string.IsNullOrEmpty(GetCache(Constants.KeyBookLoversDilema)))
             {
                 var doughnutAdventureSteps = new Dictionary<string, DecisionTreeQuery>();
 
                 var queryAreYouSure
-                  = new DecisionTreeQuery("Are you sure ?",
-                                          "Buy it.",
-                                          "You need to wait.");
+                  = new DecisionTreeQuery(Constants.AreYouSure,
+                                          Constants.BuyIt,
+                                          Constants.PleaseWait);
 
                 var queryIsItAGoodBook
-                  = new DecisionTreeQuery("Is it a good book?",
-                                          "What are you waiting for? Just buy it.",
-                                          "Find another one.");
+                  = new DecisionTreeQuery(Constants.IsItAGoodBook,
+                                          Constants.JustBuyIt,
+                                          Constants.FindAnotherOne);
                 var queryDoYouLikeIt
-                  = new DecisionTreeQuery("Do you like it?",
+                  = new DecisionTreeQuery(Constants.DoYouLikeIt,
                                           "Step-4",
                                           "Step-3");
 
                 var queryDoYouWantABook
-                  = new DecisionTreeQuery("Do you want a book?",
+                  = new DecisionTreeQuery(Constants.DoYouWantBook,
                                           "Step-2",
-                                          "Maybe you want a pizza.");
+                                          Constants.MayBeYouWantPizza);
 
 
                 doughnutAdventureSteps.Add("Step-1", queryDoYouWantABook);
@@ -62,7 +62,7 @@ namespace OpenApi.Helpers
 
                 cachedSteps = JsonConvert.SerializeObject(doughnutAdventureSteps);
 
-                KeyValuePair<string, string> keyValuePair = new("BookDilemaDecisionTreeSteps", cachedSteps);
+                KeyValuePair<string, string> keyValuePair = new(Constants.KeyBookLoversDilema, cachedSteps);
 
                 SetCache(keyValuePair);
             }

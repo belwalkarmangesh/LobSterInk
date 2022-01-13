@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using OpenApi.Models;
 using System.Collections.Generic;
 
@@ -76,8 +75,8 @@ namespace OpenApi.Helpers
         {
             var games = new List<GetAllGames>
             {
-                new GetAllGames{ Name = "Game 1", Description = "Doughnut Helper" },
-                new GetAllGames { Name = "Game 2", Description = "Book lover's Dilema" }
+                new GetAllGames{ Name = "Game 1", Description = "Book lover's Dilema" },
+                new GetAllGames { Name = "Game 2", Description = "Doughnut Helper" }
             };
 
             return games;
